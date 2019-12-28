@@ -20,7 +20,11 @@ func main() {
 	cmd.Env = []string{"PS1=-[new-process]- # "}
 
 	cmd.SysProcAttr = &syscall.SysProcAttr{
-		Cloneflags: syscall.CLONE_NEWUTS,
+		Cloneflags: syscall.CLONE_NEWUTS |
+			syscall.CLONE_NEWIPC |
+			syscall.CLONE_NEWPID |
+			syscall.CLONE_NEWNET |
+			syscall.CLONE_NEWUSER,
 	}
 
 	if err := cmd.Run(); err != nil {
